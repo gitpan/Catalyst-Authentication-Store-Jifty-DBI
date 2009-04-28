@@ -9,7 +9,7 @@ WriteMakefile(
   ABSTRACT_FROM => 'lib/Catalyst/Authentication/Store/Jifty/DBI.pm',
   PREREQ_PM => {
     'Catalyst::Runtime'                => '5.70',
-    'Catalyst::Model::Jifty::DBI'      => '0.05',
+    'Catalyst::Model::Jifty::DBI'      => '0.06',
     'Catalyst::Plugin::Authentication' => '0.10005',
     'Scalar::Util'                     => '0',
     'Test::More'                       => '0.47',

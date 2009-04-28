@@ -74,11 +74,11 @@ sub teardown : Local {
   my ($self, $c) = @_;
 
   my $dbfile = $c->model('TestDB')->database;
-  if ( -f $dbfile ) {
+  if ( $dbfile && -f $dbfile ) {
     $c->model('TestDB')->disconnect;
     unlink $dbfile;
   }
-  $c->detach('/error') if -f $dbfile;
+  $c->detach('/error') if $dbfile && -f $dbfile;
 
   $c->res->body('ok');
 }
