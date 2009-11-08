@@ -5,7 +5,7 @@ use warnings;
 use base qw( Class::Accessor::Fast );
 use Catalyst::Utils;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 BEGIN { __PACKAGE__->mk_accessors(qw( config )); }
 

@@ -9,14 +9,14 @@ sub setup : Local {
 
   my $database = $c->model('TestDB')->database;
 
-  if ( -f $database && -s $database ) {
+  if ( $database && -f $database && -s $database ) {
     $c->res->body('ok');
     return 1;
   }
 
   eval {
     $c->model('TestDB')->setup_database;
-    die unless -f $database;
+    die unless !$database or -f $database;
 
     $c->model('TestDB::User')->create(
       username  => 'joeuser',
@@ -73,12 +73,12 @@ sub setup : Local {
 sub teardown : Local {
   my ($self, $c) = @_;
 
+  $c->model('TestDB')->disconnect;
+
   my $dbfile = $c->model('TestDB')->database;
   if ( $dbfile && -f $dbfile ) {
-    $c->model('TestDB')->disconnect;
-    unlink $dbfile;
+    unlink $dbfile or $c->detach('/error');
   }
-  $c->detach('/error') if $dbfile && -f $dbfile;
 
   $c->res->body('ok');
 }
